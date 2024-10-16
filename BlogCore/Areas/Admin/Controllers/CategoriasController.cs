@@ -31,6 +31,7 @@ namespace BlogCore.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        //Para proteger xss
         [ValidateAntiForgeryToken]
         public IActionResult Create(Categoria categoria)
         {
@@ -73,15 +74,13 @@ namespace BlogCore.Areas.Admin.Controllers
             return View(categoria);
         }
 
-
-
         #region Llamadas a la API
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Json(new {data = _contenedorTrabajo.Categoria.GetAll()});
+            return Json(new { data = _contenedorTrabajo.Categoria.GetAll() });
         }
-
 
         [HttpDelete]
         public IActionResult Delete(int id)
@@ -89,7 +88,7 @@ namespace BlogCore.Areas.Admin.Controllers
             var objFromDb = _contenedorTrabajo.Categoria.Get(id);
             if (objFromDb == null)
             {
-                return Json(new { success = false, message = "Error borrando categoría"});
+                return Json(new { success = false, message = "Error borrando categoría" });
             }
 
             _contenedorTrabajo.Categoria.Remove(objFromDb);
@@ -97,6 +96,6 @@ namespace BlogCore.Areas.Admin.Controllers
             return Json(new { success = true, message = "Categoría Borrada Correctamente" });
         }
 
-        #endregion
+        #endregion Llamadas a la API
     }
 }
