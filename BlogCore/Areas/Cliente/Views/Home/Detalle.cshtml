@@ -23,6 +23,7 @@
         <div class="card-body">
             <div class="col-120">
                 <img src="@Model.UrlImagen" class="img-thumbnail mx-auto d-block" />
+                @* El raw sirve para impedir ataques ya que transforma el html *@
                 <p class="text-secondary">@Html.Raw(Model.Descripcion)</p>
             </div>
         </div>
