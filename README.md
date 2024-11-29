@@ -17,3 +17,7 @@ Nota: Cada que se haga un cambio en la base de datos, ejemplo el tipo de datos d
 - Click derecho proyecto principal -> Agregar nuevo elemento con scaffold -> Identidad
 - Seleccionar las páginas que se deseen, en este caso todas
 - Seleccionar el contexto
+
+## Identity
+
+- Cuando se crea una clase que extiende IdentityUser para añadir más propiedades, se debe hacer una nueva migración 
