@@ -26,7 +26,9 @@ namespace BlogCore.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
+        //Se usa la clase que extiende IdentityUser en este caso ApplicationUser
         private readonly SignInManager<ApplicationUser> _signInManager;
+
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
@@ -122,7 +124,6 @@ namespace BlogCore.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
         }
 
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -144,15 +145,12 @@ namespace BlogCore.Areas.Identity.Pages.Account
                 user.Pais = Input.Pais;
                 user.PhoneNumber = Input.PhoneNumber;
 
-
-
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-
                     //Aquí validamos si los roles existen sino se crean
                     if (!await _roleManager.RoleExistsAsync(CNT.Administrador))
                     {
@@ -180,7 +178,6 @@ namespace BlogCore.Areas.Identity.Pages.Account
                             await _userManager.AddToRoleAsync(user, CNT.Cliente);
                         }
                     }
-
 
                     _logger.LogInformation("User created a new account with password.");
 
