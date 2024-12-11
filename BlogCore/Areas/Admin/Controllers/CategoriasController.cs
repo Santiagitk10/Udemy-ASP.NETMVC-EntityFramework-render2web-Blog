@@ -23,7 +23,7 @@ namespace BlogCore.Areas.Admin.Controllers
             return View();
         }
 
-        //[AllowAnonymous]
+        //[AllowAnonymous] Sirve para tener el controlador protegido menos este método
         [HttpGet]
         public IActionResult Create()
         {
