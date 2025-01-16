@@ -27,6 +27,7 @@ namespace BlogCore.AccesoDatos.Data.Inicializador
 
         public void Inicializar()
         {
+            //Verifica migraciones para ver si hay pendiente y ejecutarlas
             try
             {
                 if (_bd.Database.GetPendingMigrations().Count() > 0)
@@ -35,7 +36,7 @@ namespace BlogCore.AccesoDatos.Data.Inicializador
                 }
             }
             catch (Exception)
-            {               
+            {
             }
 
             if (_bd.Roles.Any(ro => ro.Name == CNT.Administrador)) return;
@@ -54,8 +55,11 @@ namespace BlogCore.AccesoDatos.Data.Inicializador
                 Nombre = "render2web"
             }, "Admin123*").GetAwaiter().GetResult();
 
+            //Se obtiene el usuario creado en la base de datos
             ApplicationUser usuario = _bd.ApplicationUser.
                 Where(us => us.Email == "joseandresmontoya@hotmail.com").FirstOrDefault();
+
+            //Se le asigna el usuario al rol administrador
             _userManager.AddToRoleAsync(usuario, CNT.Administrador).GetAwaiter().GetResult();
 
             //Cupones de descuento para cualquiera de mis cursos: joseandresmont@gmail.com

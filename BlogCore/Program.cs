@@ -17,15 +17,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI();
-    
-builder.Services.AddControllersWithViews();
 
+builder.Services.AddControllersWithViews();
 
 //Agregar contenedor de trabajo al contenedor IoC de inyecci�n de dependencias
 builder.Services.AddScoped<IContenedorTrabajo, ContenedorTrabajo>();
 
 //Siembra de datos - Paso 1
-builder.Services.AddScoped<IInicializadorBD,  InicializadorBD>();
+builder.Services.AddScoped<IInicializadorBD, InicializadorBD>();
 
 var app = builder.Build();
 
@@ -55,6 +54,9 @@ app.MapRazorPages();
 app.Run();
 
 //Funcionalidad método SiembraDeDatos();
+//NOTA: Cuando ya se tiene la siembra de datos hay que tener cuidado si se ha venido probando con otra base de datos
+//Para probar el dataseeding es mejor cambiar la conexión a una base de datos que no existe y ejecutar las migraciones
+//desde el administrador de paquetes con update-database parado en la capa de acceso a datos
 void SiembraDatos()
 {
     using (var scope = app.Services.CreateScope())
